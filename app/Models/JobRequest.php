@@ -16,13 +16,17 @@ class JobRequest extends Model
      */
     protected $fillable = [
         'user_id',
-        'job_type',
-        'description',
-        'preferred_rate',
-        'availability',
-        'skills_offered',
+        'task_id',
+        'evaluation_answers',
+        'unique_number',
         'status',
-        'admin_response',
+        'completion_status',
+        'completion_notes',
+        'completion_proof_path',
+        'number_assigned_at',
+        'approved_at',
+        'rejected_at',
+        'completed_at',
     ];
 
     /**
@@ -33,7 +37,11 @@ class JobRequest extends Model
     protected function casts(): array
     {
         return [
-            'preferred_rate' => 'integer',
+            'evaluation_answers' => 'array',
+            'number_assigned_at' => 'datetime',
+            'approved_at'        => 'datetime',
+            'rejected_at'        => 'datetime',
+            'completed_at'       => 'datetime',
         ];
     }
 
@@ -43,5 +51,27 @@ class JobRequest extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
+    /**
+     * Status helpers (optional but useful)
+     */
+    public function isPending(): bool
+    {
+        return $this->status === 'pending';
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->status === 'approved';
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->status === 'rejected';
     }
 }

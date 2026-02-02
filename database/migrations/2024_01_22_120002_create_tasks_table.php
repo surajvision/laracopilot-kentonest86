@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('category');
             $table->enum('difficulty_level', ['easy', 'medium', 'hard'])->default('medium');
             $table->integer('points_reward');
+            $table->integer('reward_points')->default(0);
             $table->integer('time_estimate');
             $table->integer('total_slots');
             $table->integer('available_slots');
-            $table->enum('status', ['active', 'completed', 'paused'])->default('active');
+            $table->enum('status', ['active','inactive', 'completed', 'paused'])->default('active');
             $table->text('instructions')->nullable();
             $table->text('requirements')->nullable();
             $table->timestamp('deadline')->nullable();

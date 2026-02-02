@@ -21,6 +21,7 @@ return new class extends Migration
             $table->json('submission_data')->nullable();
             $table->integer('points_awarded')->default(0);
             $table->text('admin_notes')->nullable();
+             $table->timestamp('assigned_at')->nullable();
             $table->timestamps();
         });
     }
